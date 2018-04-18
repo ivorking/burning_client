@@ -8,7 +8,7 @@ import Flights from './components/Flights';
 const Routes = (
   <Router>
     <div>
-      <Route exact path="/" component={ Home } />
+      <Route exact path = "/" component={ Home } />
       <Route exact path = "/Airplanes" component = { Airplanes } />
       <Route exact path = "/Flights" component = { Flights } />
     </div>

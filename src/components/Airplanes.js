@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 //const AIRPLANES_URL = 'http://localhost:3000/airplanes.json';
 
-
 class AirplaneForm extends Component {
   render(){
     return (
