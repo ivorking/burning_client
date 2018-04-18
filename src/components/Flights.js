@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
-const FLIGHTS_URL = 'http://localhost:3333/flights.json';
+const FLIGHTS_URL = 'http://localhost:3001/flights.json';
 
 class FlightsForm extends Component {
   constructor(props) {

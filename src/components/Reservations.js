@@ -2,25 +2,29 @@ import React, { PureComponent as Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3000/reservations.json';
+const RESERVATIONS_URL = 'http://localhost:3333/reservations.json';
 
 class ReservationForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { content: '' };
+        this.state = {  content: '' },
+                        // flight_id: '',
+                        // row: '',
+                        // colum: ''};   
         this._handleChange = this._handleChange.bind(this); 
         this._handleSubmit = this._handleSubmit.bind(this);
     }
 
     _handleChange(e) {
-        this.setState( {content: e.target.value} );
+        this.setState( { content: e.target.value } );
     }
 
     _handleSubmit(e) {
         e.preventDefault();
         this.props.onSubmit(this.state.content);
-        this.setState({content: ''});
+        this.setState( {content: ''});
+        // name: '', flight_id: '', row: '', column: ''});
     }
 
     render () {
@@ -29,9 +33,8 @@ class ReservationForm extends Component {
                 <form onSubmit={ this._handleSubmit }>
                     <br />
                     <input type="text" placeholder="Name" onChange={this._handleChange} value={this.state.content} />
-                    <input type="date" onChange={this._handleChange} value={this.state.content} />
-                    <input type="text" placeholder="Origin" onChange={this._handleChange} value={this.state.content} />
-                    <input type="text" placeholder="Destination" onChange={this._handleChange} value={this.state.content} />
+                    {/* <input type="date" onChange={this._handleChange} value={this.state.date} />
+                    <input type="text" placeholder="Flight" onChange={this._handleChange} value={this.state.flight} /> */}
                     <input type="submit" value="Create Reservation" />
                 </form>
             </div>            
@@ -46,12 +49,17 @@ ReservationForm.propTypes = {
 class Reservation extends Component {
 
     constructor(props) {
+
         super(props);
         this.state = { reservations: [] };
+        // console.log(content);
         this.saveReservation = this.saveReservation.bind(this);
+        // this.fetchReservation = this.fetchReservation.bind(this);
 
         const fetchReservation = () => { 
-            axios.get(SERVER_URL).then( results => this.setState( { reservations: results.data } ) );
+            axios.get(RESERVATIONS_URL).then( results => this.setState( { reservations: results.data } ) );
+            console.log("fetching now");
+
             setTimeout(fetchReservation, 4000);
         }
 
@@ -59,7 +67,8 @@ class Reservation extends Component {
     }
 
     saveReservation(s) {
-        axios.post(SERVER_URL, {content: s}).then((results) => {
+        console.log("posting now");
+        axios.post(RESERVATIONS_URL, {content: s}).then((results) => {
             this.setState( { reservations: [results.data, ...this.state.reservations] } );
         });
     }
