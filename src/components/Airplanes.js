@@ -6,7 +6,6 @@ import axios from 'axios';
 const AIRPLANES_URL = 'http://localhost:3000/airplanes.json';
 
 
-
 class CreateAirplaneForm extends Component {
   constructor(props) {
     super(props);
@@ -21,8 +20,6 @@ class CreateAirplaneForm extends Component {
     // console.log(e.target.name);
     this.setState({[e.target.name]: e.target.value});
   }
-
-
 
   _handleSubmit(e){
     e.preventDefault();
