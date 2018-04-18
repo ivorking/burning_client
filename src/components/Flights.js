@@ -1,8 +1,9 @@
 import React, { PureComponent as Component } from 'react';
 import PropTypes from 'prop-types';
 
+import axios from 'axios';
 
-//const AIRPLANES_URL = 'http://localhost:3000/airplanes.json';
+const FLIGHTS_URL = 'http://localhost:3333/flights.json';
 
 class FlightsForm extends Component {
   constructor(props) {
@@ -40,22 +41,46 @@ class FlightsForm extends Component {
 // FlightsForm.propTypes = {
 //   onSubmit: PropTypes.func.isRequired
 // }
+// { props.flights.map( s => <p key={ s.id }>{ s.id } { s.flightDate } { s.source } { s.destination } {s.airplane_id}</p> ) }
 
-function Gallery(props) {
+function Gallery (props) {
   return (
+
     <div>
-      <p>Coming Soon</p>
+    <p>
+    { props.flights.map( s => <p key={ s.id }>{ s.id } { s.flightDate } { s.source } { s.destination } {s.airplane_id}</p> ) }
+    </p>
     </div>
   )
 }
 
 class Flights extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { flights: [] };
+    this.saveFlight = this.saveFlight.bind(this);
+
+    const fetchFlights = () => {
+      axios.get(FLIGHTS_URL).then( results => this.setState ({flightss: results.data}));
+    }
+
+    fetchFlights();
+  }
+
+  saveFlight(s) {
+    console.log(s);
+
+    axios.post(FLIGHTS_URL, {content: s}).then((results) => {
+      this.setState( { flights: [results.data, ...this.state.flights] } );
+    });
+  }
+
   render(){
     return(
       <div>
         <h2>Flights</h2>
         <FlightsForm />
-        <Gallery />
+        <Gallery flights={this.state.flights} />
         </div>
     );
   }
