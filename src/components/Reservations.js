@@ -2,7 +2,7 @@ import React, { PureComponent as Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3333/reservations.json';
+const SERVER_URL = 'http://localhost:3000/reservations.json';
 
 class ReservationForm extends Component {
 
