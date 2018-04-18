@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Airplanes from './Airplanes';
+import Flights from './Flights';
+
 
 
 
@@ -9,6 +11,7 @@ class App extends Component {
       <div className="App">
         <h1>Burning Airlines</h1>
         <Airplanes />
+        <Flights />
       </div>
     );
   }
