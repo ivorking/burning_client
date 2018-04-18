@@ -37,14 +37,14 @@ class FlightsForm extends Component {
   }
 }
 
-// FlightsForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired
-// }
+FlightsForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+}
 
-function Gallery(props) {
+function Gallery (props) {
   return (
     <div>
-      <p>Coming Soon</p>
+    { props.flights.map( s => <p key={ s.id }>{ s.id } { s.flightDate } { s.source } { s.destination } {s.airplane_id}</p> ) }
     </div>
   )
 }
