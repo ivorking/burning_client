@@ -8,19 +8,22 @@ const FLIGHTS_URL = 'http://localhost:3333/flights.json';
 class FlightsForm extends Component {
   constructor(props) {
       super(props);
-      this.state = { content: ''};
+      this.state = { flightDate: '',
+                      source: '',
+                      destination: '',
+    };
       this._handleChange = this._handleChange.bind(this); //check react console secrets form state.
       this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   _handleChange(e) {
-    this.setState( { content: e.target.value } );
+    this.setState({[e.target.name]: e.target.value});
   }
 
   _handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state.content);
-    this.setState({content: ''});
+    this.props.onSubmit(this.state);
+    this.setState({flightDate: '', source: '', destination: ''});
     // Clear the input
   }
 
