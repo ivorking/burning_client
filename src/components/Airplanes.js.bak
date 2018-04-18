@@ -55,31 +55,7 @@ class CreateAirplaneForm extends Component {
   }
 }
 
-function Gallery(props){
-  return(
-    <div>
-      {props.airplanes.map(s => <p key={s.id}>{s.content}</p>)}
-    </div>
-  )
-}
-
-class ShowAirplanes extends Component {
-
-
-}
-
 class Airplanes extends Component {
-  constructor(props){
-    super(props);
-    this.state={airplanes: []};
-
-    const fetchAirplanes = () => {
-      axios.get(SERVER_URL).then(results => this.setState({airplanes: results.data}));
-      setTimeout(fetchAirplanes, 4000);
-    }
-
-    fetchAirplanes();
-  }
 
   createAirplane(query){
     console.log('Creating: ', query);
@@ -89,7 +65,7 @@ class Airplanes extends Component {
     return(
       <div>
         <h2>Airplanes</h2>
-        <Gallery airplanes = {this.state.airplanes}/>
+        <CreateAirplaneForm onSubmit = {this.createAirplane}/>
       </div>
     );
   }
