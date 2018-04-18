@@ -32,7 +32,7 @@ class FlightsForm extends Component {
           <input type="text" placeholder="Destination" onChange={this._handleChange} value={this.state.content} />
           <input type="submit" value="Create Flight" />
         </form>
-      </div>  
+      </div>
     );
   }
 }
