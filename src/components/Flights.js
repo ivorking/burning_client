@@ -10,31 +10,43 @@ class FlightsForm extends Component {
       super(props);
       this.state = { flightDate: '',
                       source: '',
-                      destination: '',
+                      destination: ''
     };
-      this._handleChange = this._handleChange.bind(this); //check react console secrets form state.
+      this._handleFlightDateChange = this._handleFlightDateChange.bind(this);
+      this._handleSourceChange = this._handleSourceChange.bind(this);
+      this._handleDestinationChange = this._handleDestinationChange.bind(this);
       this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  _handleChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+  _handleFlightDateChange(e) {
+    this.setState({flightDate: e.target.value});
+  }
+
+  _handleSourceChange(e) {
+    this.setState({source: e.target.value});
+  }
+
+  _handleDestinationChange(e) {
+    this.setState({destination: e.target.value});
   }
 
   _handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.setState({flightDate: '', source: '', destination: ''});
-    // Clear the input
+    this.props.onSubmit(this.state.flightDate, this.state.source, this.state.destination);
+    this.setState({ flightDate: '', source: '', destination: ''})
   }
+  // this.setState({flightDate: '', source: '', destination: ''});
+  // Clear the input
 
   render() {
     return (
       <div>
+        <h2>Search Flights</h2>
         <form onSubmit={this._handleSubmit}>
-          <input type="date" onChange={this._handleChange} value={this.state.content} />
-          <input type="text" placeholder="Origin" onChange={this._handleChange} value={this.state.content} />
-          <input type="text" placeholder="Destination" onChange={this._handleChange} value={this.state.content} />
-          <input type="submit" value="Create Flight" />
+          <input type="date" onChange={this._handleFlightDateChange} value={this.state.flightDate} />
+          <input type="text" placeholder="Origin" onChange={this._handleSourceChange} value={this.state.source} />
+          <input type="text" placeholder="Destination" onChange={this._handleDestinationChange} value={this.state.destination} />
+          <input type="submit" value="Search" />
         </form>
       </div>
     );
@@ -50,9 +62,8 @@ function Gallery (props) {
   return (
 
     <div>
-    <p>
-    { props.flights.map( s => <p key={ s.id }>{ s.id } { s.flightDate } { s.source } { s.destination } {s.airplane_id}</p> ) }
-    </p>
+    <h2>All Flights</h2>
+    { props.flights.map( (f) => <p key={ f.id }>{ f.id } { f.flightDate } { f.source } { f.destination } {f.airplane_id}</p> ) }
     </div>
   )
 }
@@ -64,16 +75,16 @@ class Flights extends Component {
     this.saveFlight = this.saveFlight.bind(this);
 
     const fetchFlights = () => {
-      axios.get(FLIGHTS_URL).then( results => this.setState ({flightss: results.data}));
+      axios.get(FLIGHTS_URL).then( results => this.setState ({flights: results.data}));
     }
 
     fetchFlights();
   }
 
-  saveFlight(s) {
-    console.log(s);
+  saveFlight(f) {
+    console.log(f);
 
-    axios.post(FLIGHTS_URL, {content: s}).then((results) => {
+    axios.post(FLIGHTS_URL, {content: f}).then((results) => {
       this.setState( { flights: [results.data, ...this.state.flights] } );
     });
   }
@@ -82,7 +93,7 @@ class Flights extends Component {
     return(
       <div>
         <h2>Flights</h2>
-        <FlightsForm />
+        <FlightsForm onSubmit={this.fetchFlights}/>
         <Gallery flights={this.state.flights} />
         </div>
     );
