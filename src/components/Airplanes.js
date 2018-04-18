@@ -18,11 +18,11 @@ class CreateAirplaneForm extends Component {
   }
 
   _handleChange(e){
-    // this.setState( { name: e.target.value,
-    //                  rows: e.target.value,
-    //                  columns: e.target.columns} );
-    console.log(e.target.name);
+    // console.log(e.target.name);
+    this.setState({[e.target.name]: e.target.value});
   }
+
+
 
   _handleSubmit(e){
     e.preventDefault();
