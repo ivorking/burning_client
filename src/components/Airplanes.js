@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
-const AIRPLANES_URL = 'http://localhost:3000/airplanes.json';
-
+const AIRPLANES_URL = 'http://localhost:3001/airplanes.json';
 
 class CreateAirplaneForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '',
+    this.state = { ship: '',
                    rows: '',
                    columns: ''};
     this._handleChange = this._handleChange.bind(this);
@@ -18,14 +17,14 @@ class CreateAirplaneForm extends Component {
 
   _handleChange(e){
     // console.log(e.target.name);
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({[e.target.ship]: e.target.value});
   }
 
   _handleSubmit(e){
     e.preventDefault();
     this.props.onSubmit(this.state);
     // debugger;
-    this.setState({name: '', rows: '', columns: ''});
+    this.setState({ship: '', rows: '', columns: ''});
   }
 
   render(){
@@ -35,17 +34,17 @@ class CreateAirplaneForm extends Component {
         <form onSubmit = {this._handleSubmit}>
           <label>Name:</label>
           <input type="text"
-                 name="name"
+                 ship="ship"
                  onChange = {this._handleChange}></input>
 
           <label>Rows:</label>
           <input type="number"
-                 name="rows"
+                 rows="rows"
                  onChange = {this._handleChange}></input>
 
           <label>Columns:</label>
           <input type="number"
-                 name="columns"
+                 columns="columns"
                  onChange = {this._handleChange}></input>
 
           <input type="submit" value="Create"/>
