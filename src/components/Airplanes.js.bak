@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
-const AIRPLANES_URL = 'http://localhost:3001/airplanes.json';
+const AIRPLANES_URL = 'http://localhost:3000/airplanes.json';
+
 
 class CreateAirplaneForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { ship: '',
+    this.state = { name: '',
                    rows: '',
                    columns: ''};
     this._handleChange = this._handleChange.bind(this);
@@ -17,14 +18,14 @@ class CreateAirplaneForm extends Component {
 
   _handleChange(e){
     // console.log(e.target.name);
-    this.setState({[e.target.ship]: e.target.value});
+    this.setState({[e.target.name]: e.target.value});
   }
 
   _handleSubmit(e){
     e.preventDefault();
     this.props.onSubmit(this.state);
     // debugger;
-    this.setState({ship: '', rows: '', columns: ''});
+    this.setState({name: '', rows: '', columns: ''});
   }
 
   render(){
@@ -34,17 +35,17 @@ class CreateAirplaneForm extends Component {
         <form onSubmit = {this._handleSubmit}>
           <label>Name:</label>
           <input type="text"
-                 ship="ship"
+                 name="name"
                  onChange = {this._handleChange}></input>
 
           <label>Rows:</label>
           <input type="number"
-                 rows="rows"
+                 name="rows"
                  onChange = {this._handleChange}></input>
 
           <label>Columns:</label>
           <input type="number"
-                 columns="columns"
+                 name="columns"
                  onChange = {this._handleChange}></input>
 
           <input type="submit" value="Create"/>
@@ -54,31 +55,7 @@ class CreateAirplaneForm extends Component {
   }
 }
 
-function Gallery(props){
-  return(
-    <div>
-      {props.airplanes.map(s => <p key={s.id}>{s.content}</p>)}
-    </div>
-  )
-}
-
-class ShowAirplanes extends Component {
-
-
-}
-
 class Airplanes extends Component {
-  constructor(props){
-    super(props);
-    this.state={airplanes: []};
-
-    const fetchAirplanes = () => {
-      axios.get(SERVER_URL).then(results => this.setState({airplanes: results.data}));
-      setTimeout(fetchAirplanes, 4000);
-    }
-
-    fetchAirplanes();
-  }
 
   createAirplane(query){
     console.log('Creating: ', query);
@@ -88,7 +65,7 @@ class Airplanes extends Component {
     return(
       <div>
         <h2>Airplanes</h2>
-        <Gallery airplanes = {this.state.airplanes}/>
+        <CreateAirplaneForm onSubmit = {this.createAirplane}/>
       </div>
     );
   }

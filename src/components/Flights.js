@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 
-const FLIGHTS_URL = 'http://localhost:3333/flights.json';
+const FLIGHTS_URL = 'http://localhost:3001/flights.json';
 
 class FlightForm extends Component {
   constructor(props) {
