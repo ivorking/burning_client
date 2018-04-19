@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
-const AIRPLANES_URL = 'http://localhost:3001/airplanes.json';
+const AIRPLANES_URL = 'http://localhost:3333/airplanes.json';
 
 // IK changed "name" to "ship" to reflect postgres column names
 
