@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
-const AIRPLANES_URL = 'http://localhost:3001/airplanes.json';
+const AIRPLANES_URL = 'http://localhost:3333/airplanes.json';
 
 class CreateAirplaneForm extends Component {
   constructor(props) {
@@ -57,14 +57,23 @@ class CreateAirplaneForm extends Component {
 function Gallery(props){
   return(
     <div>
-      {props.airplanes.map(s => <p key={s.id}>{s.content}</p>)}
+      <h2>airplanes gallery</h2>
+      {/*}
+      {props.airplanes.map( a => <p key={a.id}>{a.ship} Rows: {a.row} Aisles: {a.column}</p>)}
+      */}
+      <ul>
+
+          {props.airplanes.map( a => <li
+            key={a.id}>{a.ship} Rows: {a.row} Aisles: {a.column}
+            
+          </li>)}
+
+      </ul>
     </div>
   )
 }
 
 class ShowAirplanes extends Component {
-
-
 }
 
 class Airplanes extends Component {
@@ -73,8 +82,15 @@ class Airplanes extends Component {
     this.state={airplanes: []};
 
     const fetchAirplanes = () => {
-      axios.get(SERVER_URL).then(results => this.setState({airplanes: results.data}));
-      setTimeout(fetchAirplanes, 4000);
+      // debugger;
+      // axios.get(AIRPLANES_URL).then(results => console.log(results.data));
+      axios.get(AIRPLANES_URL).then(results => this.setState({airplanes: results.data}));
+
+      // debugger;
+
+
+
+      //setTimeout(fetchAirplanes, 4000);
     }
 
     fetchAirplanes();
