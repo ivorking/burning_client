@@ -1,11 +1,12 @@
 import React, { PureComponent as Component } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import axios from 'axios';
+
 
 const FLIGHTS_URL = 'http://localhost:3001/flights.json';
 
-class FlightsForm extends Component {
+class FlightForm extends Component {
   constructor(props) {
       super(props);
       this.state = { flightDate: '',
@@ -41,21 +42,21 @@ class FlightsForm extends Component {
   render() {
     return (
       <div>
-        <h2>Search Flights</h2>
+        <h2>Create Flights</h2>
         <form onSubmit={this._handleSubmit}>
           <input type="date" onChange={this._handleFlightDateChange} value={this.state.flightDate} />
           <input type="text" placeholder="Origin" onChange={this._handleSourceChange} value={this.state.source} />
           <input type="text" placeholder="Destination" onChange={this._handleDestinationChange} value={this.state.destination} />
-          <input type="submit" value="Search" />
+          <input type="submit" value="Create" />
         </form>
       </div>
     );
   }
 }
 
-// FlightsForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired
-// }
+FlightForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+}
 // { props.flights.map( s => <p key={ s.id }>{ s.id } { s.flightDate } { s.source } { s.destination } {s.airplane_id}</p> ) }
 
 function Gallery (props) {
@@ -72,7 +73,7 @@ class Flights extends Component {
   constructor(props) {
     super(props);
     this.state = { flights: [] };
-    this.saveFlight = this.saveFlight.bind(this);
+    this.saveFlights = this.saveFlights.bind(this);
 
     const fetchFlights = () => {
       axios.get(FLIGHTS_URL).then( results => this.setState ({flights: results.data}));
@@ -81,10 +82,10 @@ class Flights extends Component {
     fetchFlights();
   }
 
-  saveFlight(f) {
+  saveFlights(f) {
     console.log(f);
 
-    axios.post(FLIGHTS_URL, {content: f}).then((results) => {
+    axios.post(FLIGHTS_URL, {source: f}).then((results) => {
       this.setState( { flights: [results.data, ...this.state.flights] } );
     });
   }
@@ -93,7 +94,7 @@ class Flights extends Component {
     return(
       <div>
         <h2>Flights</h2>
-        <FlightsForm onSubmit={this.fetchFlights}/>
+        <FlightForm onSubmit={this.saveFlights}/>
         <Gallery flights={this.state.flights} />
         </div>
     );
