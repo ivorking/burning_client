@@ -73,7 +73,7 @@ class Airplanes extends Component {
     this.state={airplanes: []};
 
     const fetchAirplanes = () => {
-      axios.get(SERVER_URL).then(results => this.setState({airplanes: results.data}));
+      axios.get(AIRPLANES_URL).then(results => this.setState({airplanes: results.data}));
       setTimeout(fetchAirplanes, 4000);
     }
 
