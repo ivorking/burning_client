@@ -65,7 +65,7 @@ function Gallery(props){
 
           {props.airplanes.map( a => <li
             key={a.id}>{a.ship} Rows: {a.row} Aisles: {a.column}
-            
+
           </li>)}
 
       </ul>
